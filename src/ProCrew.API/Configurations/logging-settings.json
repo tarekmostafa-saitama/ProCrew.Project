@@ -1,0 +1,7 @@
+{
+  "LoggerSettings": {
+    "AppName": "ProCrew.Project",
+    "WriteToFile": true,
+    "StructuredConsoleLogging": false
+  }
+}
