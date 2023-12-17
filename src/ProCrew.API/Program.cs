@@ -17,7 +17,7 @@ try
 
 
     Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS",
-        "Configurations/procrew-7a6c7-firebase-adminsdk-3ewdy-36d16ab239.json");
+        "Configurations/firebase.json");
     builder.Services.AddScoped<IAuditService>(s => new AuditService(
         FirestoreDb.Create("procrew-7a6c7")
     ));
