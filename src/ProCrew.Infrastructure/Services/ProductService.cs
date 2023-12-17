@@ -48,7 +48,7 @@ public class ProductService(ApplicationDbContext dbContext) : IProductService
 
     public async Task<List<ProductVm>> GetAllProductsAsync()
     {
-        var products = await _dbContext.Products.ToListAsync();
+        var products = await _dbContext.Products.AsNoTracking().ToListAsync();
         return products.Adapt<List<ProductVm>>();
     }
 }
