@@ -22,10 +22,13 @@ public class ProductService(ApplicationDbContext dbContext) : IProductService
 
     public async Task<int> UpdateProductAsync(ProductVm productVm)
     {
-        var product = await _dbContext.Products.AsNoTracking().FirstOrDefaultAsync(x=>x.Id ==productVm.Id);
+        var product = await _dbContext.Products.FindAsync(productVm.Id);
         if (product == null) throw new NotFoundException("Product not found");
-        product = productVm.Adapt<Product>();
-        _dbContext.Products.Update(product);
+        product.Description = productVm.Description;
+        product.Name = productVm.Name;
+        product.Price = productVm.Price;
+        product.Quantity = productVm.Quantity;
+        
         var result = await _dbContext.SaveChangesAsync();
         return product.Id;
     }
