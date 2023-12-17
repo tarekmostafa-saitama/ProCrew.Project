@@ -22,7 +22,7 @@ public class ProductService(ApplicationDbContext dbContext) : IProductService
 
     public async Task<int> UpdateProductAsync(ProductVm productVm)
     {
-        var product = await _dbContext.Products.FindAsync(productVm.Id);
+        var product = await _dbContext.Products.AsNoTracking().FirstOrDefaultAsync(x=>x.Id ==productVm.Id);
         if (product == null) throw new NotFoundException("Product not found");
         product = productVm.Adapt<Product>();
         _dbContext.Products.Update(product);
@@ -32,7 +32,7 @@ public class ProductService(ApplicationDbContext dbContext) : IProductService
 
     public async Task<int> DeleteProductAsync(int id)
     {
-        var product = await _dbContext.Products.FindAsync(id);
+        var product = await _dbContext.Products.AsNoTracking().FirstOrDefaultAsync(x => x.Id ==id);
         if (product == null) throw new NotFoundException("Product not found");
         _dbContext.Products.Remove(product);
         var result = await _dbContext.SaveChangesAsync();
